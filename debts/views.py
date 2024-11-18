@@ -53,7 +53,6 @@ class LoanDetailView(DetailView):
             if loan.lender != self.request.user and loan.borrower != self.request.user:
                 raise PermissionDenied("У вас нет доступа к этому займу.")
         
-        # Отправить уведомление, если это заем для заемщика
         if loan.borrower == self.request.user and not self.request.user.is_staff:
             self.send_loan_notification(loan)  
 
@@ -68,7 +67,7 @@ class LoanDetailView(DetailView):
                   f"Дата возврата: {loan.due_date.strftime('%Y-%m-%d')}\n" \
                   f"Процентная ставка: {loan.interest_rate}%\n\n" \
                   f"С уважением, ваша компания."
-        
+
         recipient_list = [loan.lender.email]
         print(loan.lender.email)
         send_mail(
