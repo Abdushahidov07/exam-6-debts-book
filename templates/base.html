@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Займы и Баланс</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %} 
+    {% bootstrap_javascript %} 
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-gray ">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'loan_list' %}">LOAN 2007</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">Open</span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'loan_list' %}">HOME</a>
+                  </li>
+                  {% if  user.is_superuser %}
+                  {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_loan' %}">Создать новый займ</a>
+                    </li>
+                  {% endif %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+                  </li>
+                  {% if user.is_superuser %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      ADDS
+                    </a>
+                    <ul class="dropdown-menu">
+                    </ul>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </nav>
+   </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

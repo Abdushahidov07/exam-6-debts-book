@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .delete-confirmation {
+      text-align: center;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 50px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .delete-confirmation h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #d9534f;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .delete-button {
+      background-color: #d9534f;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover {
+      background-color: #c9302c;
+    }
+
+    .cancel-button {
+      text-decoration: none;
+      background-color: #f0ad4e;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .cancel-button:hover {
+      background-color: #ec971f;
+    }
+  </style>
+
+  <div class="delete-confirmation">
+    <h2>Вы уверены, что хотите удалить этот заем?</h2>
+    <form method="post" class="delete-form">
+      {% csrf_token %}
+      <div class="button-container">
+        <button type="submit" class="delete-button">Удалить</button>
+        <a href="{% url 'loan_list' %}" class="cancel-button">Отмена</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+

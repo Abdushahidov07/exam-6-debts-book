@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Ваш баланс</h2>
+  <p>Баланс: {{ wallet.balance }} {{ wallet.currency }}</p>
+  <a href="{% url 'loan_list' %}">Назад к списку займов</a>
+{% endblock %}

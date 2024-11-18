@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Ваши займы</h2>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7fc;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .a1 {
+        padding: 15px;
+        background-color: #fff;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .a1 a {
+        font-size: 18px;
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .a1 a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    p {
+        text-align: center;
+        font-size: 16px;
+        color: #777;
+    }
+
+    .create-loan-link {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .create-loan-link:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<ul>
+  {% for loan in loans %}
+    <li class="a1">
+      <a href="{% url 'loan_detail' loan.id %}">Заем №{{ loan.id }} {% if user.is_superuser %}{{ loan.lender }}{% endif %}: {{ loan.amount }} {{ loan.borrower.wallet.currency }}</a> ({{ loan.get_status_display }})
+    </li>
+  {% empty %}
+    <p>У вас нет активных займов.</p>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'create_loan' %}" class="create-loan-link">Создать новый займ</a>
+{% endblock %}
